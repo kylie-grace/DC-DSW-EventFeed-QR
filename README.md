@@ -15,7 +15,7 @@ The Event Importer Script is designed to fetch event data from the University of
   - Excluded small performances, poster sales, and other events that are less relevant.
 - Sorts the data by event start date.
 - Limits the number of rows to 12.
-- Generates QR codes for each event.
+- Generates QR codes for each event using the quickchart.io API.
 - Formats the event date and time.
 - Dynamically updates the event data based on the current date in the Michigan, USA timezone.
 
