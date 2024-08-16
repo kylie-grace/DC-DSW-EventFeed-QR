@@ -12,6 +12,7 @@ The Event Importer Script is designed to fetch event data from the University of
   - Excluding events with the tag "Cancelled".
   - Excluding events that are not open to the public.
   - Excluding events that do not have a valid start date.
+  - Excluded small performances, poster sales, and other events that are less relevant.
 - Sorts the data by event start date.
 - Limits the number of rows to 12.
 - Generates QR codes for each event.
