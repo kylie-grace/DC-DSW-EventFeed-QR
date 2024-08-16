@@ -1,51 +1,6 @@
-# DC-DSW-EventFeed-QR
-Google Apps Script that downloads an events JSON from events.umich.edu, unpacks and reformats, and generates a QR code on a 15 minute schedule.
-
-## Purpose
-The Event Importer Script is designed to fetch event data from the University of Michigan's event API, process the data, and populate a Google Sheet with the relevant information. The script dynamically updates the event data based on the current date in the Michigan, USA timezone.
-
-## Usage
-1. **Setup Google Apps Script:**
-   - Open Google Sheets.
-   - Go to `Extensions` > `Apps Script`.
-   - Delete any existing code in the script editor and paste the provided script.
-
-2. **Script Execution:**
-   - The script fetches event data from two URLs, combines the data while avoiding duplicates, filters out events based on specific criteria, sorts the data by event start date, and limits the number of rows to 12.
-   - The script also generates QR codes for each event and formats the event date and time.
-
-3. **Trigger Setup:**
-   - The script includes a function to create a time-based trigger that runs the `importJSONfromURL` function every 5 minutes. This can be adjusted as needed.
-
-## How to Update
-1. **Update URLs:**
-   - The URLs in the script are dynamically generated based on the current date in the Michigan, USA timezone. If the API endpoints change, update the `url1` and `url2` variables accordingly.
-
-2. **Modify Filters:**
-   - To change the filtering criteria, modify the filtering logic within the `importJSONfromURL` function.
-
-3. **Adjust Trigger Interval:**
-   - To change the trigger interval, modify the `createTrigger` function.
-
-## Deployment
-1. **Deploy as a Google Apps Script:**
-   - After pasting the script into the Google Apps Script editor, save the project.
-   - Click on the clock icon to open the triggers page.
-   - Add a new trigger for the `importJSONfromURL` function and set the desired interval.
-
-2. **Manual Execution:**
-   - You can manually run the `importJSONfromURL` function from the Apps Script editor to test the script.
-
-## Script
-```javascript
 function importJSONfromURL() {
-  // Get the current date in Michigan, USA
-  var michiganTimeZone = 'America/Detroit';
-  var currentDate = new Date().toLocaleDateString('en-CA', { timeZone: michiganTimeZone }); // Format: YYYY-MM-DD
-
-  // Construct URLs with the current date
-  var url1 = `https://events.umich.edu/list/json?filter=locations:181&range=${currentDate}&v=2`; // First JSON URL
-  var url2 = `https://events.umich.edu/list/json?filter=tags:North%20Campus&range=${currentDate}&v=2`; // Second JSON URL
+  var url1 = 'https://events.umich.edu/list/json?filter=locations:181&range=2024-07-02&v=2'; // First JSON URL
+  var url2 = 'https://events.umich.edu/list/json?filter=tags:North%20Campus&range=2024-08-03&v=2'; // Second JSON URL
   
   var response1 = UrlFetchApp.fetch(url1);
   var response2 = UrlFetchApp.fetch(url2);
@@ -179,6 +134,3 @@ function createTrigger() {
     .everyMinutes(5) // Adjust the interval as needed
     .create();
 }
-
-**Credits:**
- This script was developed with the assistance of GitHub Copilot.
