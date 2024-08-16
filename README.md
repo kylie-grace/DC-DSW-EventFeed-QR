@@ -54,6 +54,9 @@ The Event Importer Script is designed to fetch event data from the University of
      
 ## Credits
  This script was developed with the assistance of GitHub Copilot.
+ 
+## License 
+This project is licensed under the MIT License.
 
 ## Script
 ```javascript
