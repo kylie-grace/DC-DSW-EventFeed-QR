@@ -1,8 +1,22 @@
 # DC-DSW-EventFeed-QR
-Google Apps Script that downloads an events JSON from events.umich.edu, unpacks and reformats, and generates a QR code on a 15 minute schedule.
+Google Apps Script that downloads an events JSON from events.umich.edu, unpacks and reformats, and generates a QR code on a 15 minute schedule. Initially created for usage with a FourWindsInteractive digital signage system in the University of Michigan's Duderstadt Center which is located on North Campus.
 
 ## Purpose
-The Event Importer Script is designed to fetch event data from the University of Michigan's event API, process the data, and populate a Google Sheet with the relevant information. The script dynamically updates the event data based on the current date in the Michigan, USA timezone.
+The Event Importer Script is designed to fetch event data from the University of Michigan's event API, process the data, and populate a Google Sheet with the relevant information. The script performs the following tasks:
+
+- Fetches event data from two URLs.
+  - Multiple data sources are used to ensure signage content always stays fresh with relevant information from nearby partners as well as internal events. 
+- Combines the data while avoiding duplicates using eventID.
+- Un-nests JSON levels to extract relevant information.
+- Filters out events based on specific criteria:
+  - Excluding events with the tag "Cancelled".
+  - Excluding events that are not open to the public.
+  - Excluding events that do not have a valid start date.
+- Sorts the data by event start date.
+- Limits the number of rows to 12.
+- Generates QR codes for each event.
+- Formats the event date and time.
+- Dynamically updates the event data based on the current date in the Michigan, USA timezone.
 
 ## Usage
 1. **Setup Google Apps Script:**
@@ -19,6 +33,8 @@ The Event Importer Script is designed to fetch event data from the University of
 
 ## How to Update
 1. **Update URLs:**
+  - Find the JSON URLS that are needed for your usage. For University of Michigan events, you can reference the ITS Digital Signage training documentation and video on Advanced Use of Live Data in CMD.
+    - https://its.umich.edu/communication/television-video/digital-signage/content-manager-resources#training
    - The URLs in the script are dynamically generated based on the current date in the Michigan, USA timezone. If the API endpoints change, update the `url1` and `url2` variables accordingly.
 
 2. **Modify Filters:**
@@ -35,6 +51,9 @@ The Event Importer Script is designed to fetch event data from the University of
 
 2. **Manual Execution:**
    - You can manually run the `importJSONfromURL` function from the Apps Script editor to test the script.
+     
+## Credits
+ This script was developed with the assistance of GitHub Copilot.
 
 ## Script
 ```javascript
@@ -179,6 +198,3 @@ function createTrigger() {
     .everyMinutes(5) // Adjust the interval as needed
     .create();
 }
-
-**Credits:**
- This script was developed with the assistance of GitHub Copilot.
